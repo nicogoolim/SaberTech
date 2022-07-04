@@ -2,20 +2,20 @@
 #include <string>
  
 void RemoveDups(char* str) {
-	for (int i = 0; i < strlen(str)-1; i++)
+	int i = 0;
+	int count = 1;
+	while (i < strlen(str) - 1)
 	{
-		if (*(str+i)==*(str+i+1))
+		if (str[i] == str[i + count])
 		{
-			for (int j = i+1; j < strlen(str); j++)
-			{
-				if (*(str + i) == *(str + j))
-				{
-					*(str + j) = ' ';
-				}
-				else {
-					break;
-				}
-			}
+			str[i + count] = ' ';
+			count++;
 		}
+		else
+		{
+			i += count;
+			count = 1;
+		}
+
 	}
 }

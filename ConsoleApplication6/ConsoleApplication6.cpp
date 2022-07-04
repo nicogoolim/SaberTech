@@ -3,7 +3,11 @@
 #include "dups.h"
 #include <Windows.h>
 #include "ListNode.h"
-
+/*
+Задание выполнил Скорых Михаил Андреевич
+Дата выполнения 04.07.2022
+Примерное количество времени, затраченного на выполнение: 4.5 часа
+*/
 
 int main()
 {
@@ -13,19 +17,20 @@ int main()
 	int number;
 	std::cout << "Введите число:";
 	std::cin >> number;
-	std::cout << "Число в двоичной системе: " << transb(number) << std::endl;
+	transb(number);
 
 
-	char str[] = "AAA BBB AAA";
-	std::cout << "Строка до очистки: " << str << std::endl;
-	RemoveDups(str);
-	std::cout << "Строка После очистки: " << str << std::endl;
+	char data[] = "AAA BBB AAA";
+	std::cout << "Строка до очистки: " << data << std::endl;
+	RemoveDups(data);
+	printf("Строка после очистки: %s\n", data);
 	
 
 	
 	ListNode* first = new ListNode;
 	ListNode* second = new ListNode;
 	ListNode* third = new ListNode;
+	ListNode* fourth = new ListNode;
 
 	first->data = "Первый";
 	first->next = second;
@@ -36,22 +41,24 @@ int main()
 
 	third->data = "Третий";
 	third->prev = second;
-	third->next = nullptr;
+	third->next = fourth;
+
+	fourth->data = "Четвёртый";
+	fourth->prev = third;
+	fourth->next = nullptr;
 
 	first->rand = third;
 	second->rand = nullptr;
 	third->rand = second;
+	fourth->rand = first;
 
-	List l(first, third);
+	List list(first, fourth);
 
-	FILE* wFile;
-	wFile = fopen("bin.bin", "wb");
-	l.Serialize(wFile);
-	fclose(wFile);
+	FILE* wFile = new FILE();
+	list.Serialize(wFile);
 
-	FILE* rFile;
-	rFile = fopen("bin.bin", "rb");
-	l.Deserialize(rFile);
-	fclose(rFile);
+	FILE* rFile = new FILE();
+	list.Deserialize(rFile);
+
 }
 
